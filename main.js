@@ -3957,13 +3957,13 @@ var AppComponent = /** @class */ (function () {
         if (reason == "RecognizedSpeech") {
             this.lastRecognized += e.result.text + " ";
             this.innerHtml = this.lastRecognized;
-            this.getAnalysis(e.result.text);
+            this.getAnalysisAndUpdateChart(e.result.text);
         }
     };
-    AppComponent.prototype.getAnalysis = function (text) {
+    AppComponent.prototype.getAnalysisAndUpdateChart = function (text) {
         var _this = this;
         var headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
-        this.httpClient.post("https://localhost:5001/WeatherForecast", { "text": text }, { headers: headers })
+        this.httpClient.post("https://sentmentanalysisapi.azurewebsites.net/Behaviour/sentiment", { "text": text }, { headers: headers })
             .subscribe(function (res) {
             console.log("Sentiment: ", res);
             _this.myChart.data.labels.push(_this.getLabel());
